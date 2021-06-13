@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from 'src/styles/Home.module.css'
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
         <p className="text-3xl text-red-500 font-bold">Hello Tailwind</p>
 
         <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
+          Get started by editing <code className={styles.code}>pages/index.jsx</code>
         </p>
 
         <div className={styles.grid}>
