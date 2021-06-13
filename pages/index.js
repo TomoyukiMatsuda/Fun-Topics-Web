@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
-// TODO: eslint, prettier をセットアップ
 export default function Home() {
   return (
     <div className={styles.container}>
