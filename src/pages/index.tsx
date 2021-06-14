@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import styles from 'src/styles/Home.module.css'
 
+// TODO: 自動補完機能で import 絶対パスアクセスできるか確認
 export default function Home() {
   return (
+    //todo; ブランチ切り替える issueに基づく
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
