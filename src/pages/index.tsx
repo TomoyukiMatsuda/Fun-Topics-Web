@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from 'src/styles/Home.module.css'
 
-// TODO: eslint, prettier をセットアップ
+// TODO: 自動補完機能で import 絶対パスアクセスできるか確認
 export default function Home() {
   return (
+    //todo; ブランチ切り替える issueに基づく
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -17,7 +18,7 @@ export default function Home() {
         <p className="text-3xl text-red-500 font-bold">Hello Tailwind</p>
 
         <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
+          Get started by editing <code className={styles.code}>pages/index.jsx</code>
         </p>
 
         <div className={styles.grid}>
