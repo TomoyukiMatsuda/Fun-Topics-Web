@@ -1,61 +1,70 @@
 import Head from 'next/head'
 import styles from 'src/styles/Home.module.css'
+import { useCallback, useState } from 'react'
 
 // TODO: 自動補完機能で import 絶対パスアクセスできるか確認
 export default function Home() {
+  const [topic, setTopic] = useState<string>('なにをやねーん')
+
+  const topics: Array<string> = [
+    '最近あった面白いこと',
+    '最近ハッピーだったこと',
+    '最近失敗したこと',
+    '１ヶ月の休みが会ったらなにする？',
+    '１億円あったらどうする？',
+    '休日はどう過ごしている？',
+    'こういう人は許せない',
+    '朝起きて最初にすること',
+    '人生で最も乗っていたときの話',
+    '無人島に持っていくもの３つ',
+    'もう一度人生をやるとしたらなにになる？',
+    '50歳のときにどうなっていたい？',
+    '人生最大の失敗',
+    '最後に泣いたのは？',
+    '１年前の今頃なにしてた？',
+    '５年前の今頃なにしてた？',
+    '３年前の今頃なにしてた？',
+    'なぞに覚えている一番小さい頃の思い出',
+    '小さい頃の夢',
+    '最近買った高価なもの',
+    '子供に付けたい名前',
+    'すべらない話',
+    '今ハマっていること',
+    '永遠の何歳でいたい？',
+    '今の生活の中での一番の楽しみ',
+    '昔学校で流行った遊び',
+    '大学時代に戻ったらやりたいこと',
+    '職場にいるおもろい人',
+    '最近感じた青春',
+    '自分の中での流行語',
+    '最近「自分天才か!」と感じたこと',
+    '自分の好きなところ',
+    'もう一度新卒就活するとしたらどこにいく？',
+    '自由に職業選べるとしたらなにやる',
+    '自分に子供ができたらなにになって欲しい？',
+    '何か新しく始めたいことは？',
+    '無人島に持っていくもの１つ',
+  ]
+  const onClickSwitch = useCallback(() => {
+    const topicNum = Math.floor(Math.random() * topics.length)
+
+    setTopic(topics[topicNum])
+  }, [topics])
   return (
-    //todo; ブランチ切り替える issueに基づく
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>FUNトピックス</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <p className="text-3xl text-red-500 font-bold">Hello Tailwind</p>
-
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.jsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div>
+        <p className="text-xl font-bold">{topic}</p>
+        <button
+          className="text-white text-2xl bg-green-400 p-2 m-5 hover:bg-green-200 rounded-3xl bg-sh shadow-lg active:shadow-none"
+          onClick={onClickSwitch}
         >
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+          とりあえず押す
+        </button>
+      </div>
     </div>
   )
 }
