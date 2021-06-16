@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from 'src/styles/Home.module.css'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
+import { PrimaryButton } from '../components/PrimaryButton'
 
 interface CommonTopic {
   id: number
@@ -51,6 +52,7 @@ export default function Home() {
   ]
   const [topic, setTopic] = useState<string>('なにをやねーん')
   const [commonTopics, setCommonTopics] = useState<Array<string>>(topics)
+  // todo デバッグ用確認している
   console.log(commonTopics)
 
   // TODO: topics をAPIから取得
@@ -78,18 +80,8 @@ export default function Home() {
       </Head>
       <div>
         <p className="text-xl font-bold">{topic}</p>
-        <button
-          className="text-white text-2xl bg-green-400 p-2 m-5 hover:bg-green-200 rounded-3xl bg-sh shadow-lg active:shadow-none"
-          onClick={onClickSwitch}
-        >
-          とりあえず押す
-        </button>
-        <button
-          className="text-white text-2xl bg-green-400 p-2 m-5 hover:bg-green-200 rounded-3xl bg-sh shadow-lg active:shadow-none"
-          onClick={getCommonTopics}
-        >
-          話題UPDATE
-        </button>
+        <PrimaryButton onClick={onClickSwitch}>とりあえず押す</PrimaryButton>
+        <PrimaryButton onClick={getCommonTopics}>話題を取得</PrimaryButton>
       </div>
     </div>
   )
