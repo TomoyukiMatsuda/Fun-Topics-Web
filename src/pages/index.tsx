@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from 'src/styles/Home.module.css'
 import { useCallback, useState } from 'react'
 import axios from 'axios'
-import { PrimaryButton } from '../components/PrimaryButton'
+import { Main } from '../components/Main'
 
 interface CommonTopic {
   id: number
@@ -66,7 +66,7 @@ export default function Home() {
       .catch()
   }, [])
 
-  const onClickSwitch = useCallback(() => {
+  const onClickShuffle = useCallback(() => {
     // TODO: ランダム確率の最適化
     const topicNum = Math.floor(Math.random() * commonTopics.length)
 
@@ -78,11 +78,7 @@ export default function Home() {
         <title>FUNトピックス</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <p className="text-xl font-bold">{topic}</p>
-        <PrimaryButton onClick={onClickSwitch}>とりあえず押す</PrimaryButton>
-        <PrimaryButton onClick={getCommonTopics}>話題を取得</PrimaryButton>
-      </div>
+      <Main topic={topic} onClickShuffle={onClickShuffle} getCommonTopics={getCommonTopics} />
     </div>
   )
 }
