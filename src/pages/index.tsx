@@ -1,11 +1,15 @@
 import Head from 'next/head'
 import styles from 'src/styles/Home.module.css'
 import { useCallback, useState } from 'react'
+import axios from 'axios'
+
+interface CommonTopic {
+  id: number
+  content: string
+}
 
 // TODO: 自動補完機能で import 絶対パスアクセスできるか確認
 export default function Home() {
-  const [topic, setTopic] = useState<string>('なにをやねーん')
-
   const topics: Array<string> = [
     '最近あった面白いこと',
     '最近ハッピーだったこと',
@@ -45,11 +49,27 @@ export default function Home() {
     '何か新しく始めたいことは？',
     '無人島に持っていくもの１つ',
   ]
-  const onClickSwitch = useCallback(() => {
-    const topicNum = Math.floor(Math.random() * topics.length)
+  const [topic, setTopic] = useState<string>('なにをやねーん')
+  const [commonTopics, setCommonTopics] = useState<Array<string>>(topics)
+  console.log(commonTopics)
 
-    setTopic(topics[topicNum])
-  }, [topics])
+  // TODO: topics をAPIから取得
+  const getCommonTopics = useCallback(() => {
+    axios
+      .get<Array<CommonTopic>>('http://localhost:8080/common_topic/list')
+      .then((res) => {
+        const commonTopicList = res.data.map((commonTopic) => commonTopic.content)
+        setCommonTopics(commonTopicList)
+      })
+      .catch()
+  }, [])
+
+  const onClickSwitch = useCallback(() => {
+    // TODO: ランダム確率の最適化
+    const topicNum = Math.floor(Math.random() * commonTopics.length)
+
+    setTopic(commonTopics[topicNum])
+  }, [commonTopics])
   return (
     <div className={styles.container}>
       <Head>
@@ -63,6 +83,12 @@ export default function Home() {
           onClick={onClickSwitch}
         >
           とりあえず押す
+        </button>
+        <button
+          className="text-white text-2xl bg-green-400 p-2 m-5 hover:bg-green-200 rounded-3xl bg-sh shadow-lg active:shadow-none"
+          onClick={getCommonTopics}
+        >
+          話題UPDATE
         </button>
       </div>
     </div>
