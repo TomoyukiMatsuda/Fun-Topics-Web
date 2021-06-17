@@ -3,6 +3,7 @@ import styles from 'src/styles/Home.module.css'
 import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Main } from '../components/Main'
+import { apiClient } from '../api/apiClient'
 
 interface CommonTopic {
   id: number
@@ -55,14 +56,11 @@ export default function Home() {
   // todo デバッグ用確認している
   console.log(commonTopics)
 
-  const getCommonTopics = useCallback(() => {
-    axios
-      .get<Array<CommonTopic>>('/common_topic/list')
-      .then((res) => {
-        const commonTopicList = res.data.map((commonTopic) => commonTopic.content)
-        setCommonTopics(commonTopicList)
-      })
-      .catch()
+  const fetchCommonTopics = useCallback(async () => {
+    const response = await apiClient.get<Array<CommonTopic>>('common_topic/list')
+    const commonTopicList = response.data.map((commonTopic) => commonTopic.content)
+    console.log(response, commonTopicList)
+    setCommonTopics(commonTopicList)
   }, [])
 
   const onClickShuffle = useCallback(() => {
@@ -77,7 +75,7 @@ export default function Home() {
         <title>FUNトピックス</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Main topic={topic} onClickShuffle={onClickShuffle} getCommonTopics={getCommonTopics} />
+      <Main topic={topic} onClickShuffle={onClickShuffle} getCommonTopics={fetchCommonTopics} />
     </div>
   )
 }
