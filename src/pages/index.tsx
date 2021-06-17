@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import styles from 'src/styles/Home.module.css'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Main } from '../components/Main'
 
@@ -55,10 +55,9 @@ export default function Home() {
   // todo デバッグ用確認している
   console.log(commonTopics)
 
-  // TODO: topics をAPIから取得
   const getCommonTopics = useCallback(() => {
     axios
-      .get<Array<CommonTopic>>('http://localhost:8080/common_topic/list')
+      .get<Array<CommonTopic>>('/common_topic/list')
       .then((res) => {
         const commonTopicList = res.data.map((commonTopic) => commonTopic.content)
         setCommonTopics(commonTopicList)
